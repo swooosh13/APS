@@ -117,21 +117,8 @@ public class DeviceManager {
             if (!isBuffersEmpty) {
                 // Приоритет по номеру источника
                 Request req = null;
-//                int numberBuffer = 0;
-//                int minSourceNumber = Integer.MAX_VALUE;
                 int numberSource = Main.countOfSources + 1;
                 int numberRequest = Main.countOfRequests;
-
-//                for (int i = 0; i < buffers.size(); ++i) {
-//
-//                    if (buffers.get(i).getRequest() != null
-//                            &&
-//                            buffers.get(i).getRequest().getSourceNumber() < minSourceNumber) {
-//                        req = buffers.get(i).getRequest();
-//                        minSourceNumber = req.getSourceNumber();
-//                        numberBuffer = i;
-//                    }
-//                }
 
                 for (int i = 0; i < buffers.size(); ++i) {
                     if (buffers.get(i).getRequest() != null && buffers.get(i).getRequest().getSourceNumber() == selectedSource) {
@@ -161,7 +148,6 @@ public class DeviceManager {
 
                 buffers.get(numberBuffer).delete();
                 sources.get(numberSource).setTimeInBuffer(buffers.get(numberBuffer).getTimeInBuffer());
-//                sources.get(req.getSourceNumber()).setTimeInBuffer(buffers.get(numberBuffer).getTimeInBuffer());
                 Main.systemTime = buffers.get(numberBuffer).getTimeOfDeparture();
 
                 // отправляем на прибор
