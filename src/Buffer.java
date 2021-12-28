@@ -18,9 +18,9 @@ public class Buffer {
         timeOfArrival = Main.systemTime;
         if (Main.step) {
             System.out.println("+-------------------------------------------+");
-            System.out.println("|                 Генерация                 |");
+            System.out.println("|              Поступление в буфер          |");
             System.out.println("+-------------------------------------------+");
-            System.out.println("Поступлние заявки №" + request.getRequestNumber() + " в буфер №" + this.number + " (" + request.getSourceNumber() + ", " + request.getGenerationTime() + ")");
+            System.out.println("Поступление заявки №" + request.getRequestNumber() + " в буфер №" + this.number + " (" + request.getSourceNumber() + ", " + request.getGenerationTime() + ")");
             System.out.println("Время : " + Main.systemTime);
             System.out.println("---------------------------------------------");
         }

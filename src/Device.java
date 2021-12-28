@@ -16,6 +16,9 @@ public class Device {
         this.request = request;
         timeOfArrival = Main.systemTime;
         if (Main.step) {
+            System.out.println("+-------------------------------------------+");
+            System.out.println("|            Поступление на прибор          |");
+            System.out.println("+-------------------------------------------+");
             System.out.println("Поступление заявки №" + request.getRequestNumber() + " на прибор №" + this.number + " (" + request.getSourceNumber() + ", " + request.getGenerationTime() + ")");
             System.out.println("Время : " + Main.systemTime);
 //            System.out.println("---------------------------------------------");
@@ -28,6 +31,9 @@ public class Device {
         timeAllInDevice += timeOfDeparture - timeOfArrival;
         timeInDevice = timeOfDeparture - timeOfArrival;
         if (Main.step) {
+            System.out.println("+-------------------------------------------+");
+            System.out.println("|            Удаление из прибора            |");
+            System.out.println("+-------------------------------------------+");
             System.out.println("Заявка №" + request.getRequestNumber() + " удалена из прибора №" + this.number);
             System.out.println("Время : " + Main.systemTime);
             System.out.println("---------------------------------------------");

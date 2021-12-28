@@ -23,11 +23,11 @@ public class BufferManager {
 
         int index = 0;
         for (int i = 0; i < buffers.size(); i++) {
-            if (buffers.get(i).getRequest().getSourceNumber() < min.getSourceNumber()) { // если приоритет по номеру источника ниже то берем
+            if (buffers.get(i).getRequest().getSourceNumber() > min.getSourceNumber()) { // если приоритет по номеру источника ниже то берем
                 min = buffers.get(i).getRequest();
                 index = i;
             } else if (buffers.get(i).getRequest().getSourceNumber() == min.getSourceNumber()) { // если одинаковый источник смотрим по времени
-                if (buffers.get(i).getRequest().getGenerationTime() < min.getGenerationTime()) {
+                if (buffers.get(i).getRequest().getGenerationTime() > min.getGenerationTime()) {
                     min = buffers.get(i).getRequest();
                     index = i;
                 }
@@ -36,6 +36,9 @@ public class BufferManager {
 
         int numberSource = buffers.get(index).getRequest().getSourceNumber();
         if (Main.step) {
+            System.out.println("+-------------------------------------------+");
+            System.out.println("|                 Выбита                    |");
+            System.out.println("+-------------------------------------------+");
             System.out.println("Заявка №" + buffers.get(index).getRequest().getRequestNumber() + " выбита");
         }
         buffers.get(index).delete();

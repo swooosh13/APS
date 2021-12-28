@@ -1,52 +1,9 @@
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class DeviceManager {
     static int devicePointer;
     static int selectedSource = -1;
-
-    static class Package {
-        static int packageNumber = 0;
-        static int packageCount = 0;
-    }
-
-    static public void updatePackageNumber(List<Buffer> buffers, int countSources) {
-        if (Package.packageCount > 0) {
-            Package.packageCount -= 1;
-            return;
-        }
-
-        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-        for (int i = 0; i < countSources; i++) {
-            map.put(i, 0);
-        }
-
-        for (int i = 0; i < buffers.size(); i++) {
-            Request req = buffers.get(i).getRequest();
-            if (req != null)
-                map.put(req.getSourceNumber(), map.get(req.getSourceNumber()) + 1);
-        }
-
-        Map.Entry<Integer, Integer> minEntry = null;
-
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            if (minEntry == null || entry.getValue() > 0) {
-                minEntry = entry;
-            }
-        }
-
-        Package.packageNumber = minEntry.getKey();
-        Package.packageCount = minEntry.getValue();
-
-
-        System.out.println("Номер пакета: " + Package.packageNumber + " кол-во в пакете: " + Package.packageCount);
-    }
-
-    static public int getPackageNumber() {
-        return Package.packageNumber;
-    }
 
     private int findDevice(List<Device> devices, List<Buffer> buffers) {
 
@@ -85,9 +42,7 @@ public class DeviceManager {
 
     public void sendToDevice(List<Buffer> buffers, List<Device> devices,
                              List<Request> requests, List<Source> sources) {
-
-        updatePackageNumber(buffers, sources.size());
-
+        System.out.println("Номер пакета: " + (selectedSource));
         if (Main.step) {
             new Scanner(System.in).nextLine();
         }
@@ -117,17 +72,18 @@ public class DeviceManager {
             if (!isBuffersEmpty) {
                 // Приоритет по номеру источника
                 Request req = null;
-                int numberSource = Main.countOfSources + 1;
+//                int numberSource = Main.countOfSources + 1;
+                int numberSource = -1;
                 int numberRequest = Main.countOfRequests;
 
                 for (int i = 0; i < buffers.size(); ++i) {
-                    if (buffers.get(i).getRequest() != null && buffers.get(i).getRequest().getSourceNumber() == selectedSource) {
+                    if (buffers.get(i).getRequest() != null && buffers.get(i).getRequest().getSourceNumber() == selectedSource) { // Д2Б5
                         numberSource = buffers.get(i).getRequest().getSourceNumber();
                         break;
                     }
                     if (buffers.get(i).getRequest() != null
                             &&
-                            buffers.get(i).getRequest().getSourceNumber() < numberSource) {
+                            buffers.get(i).getRequest().getSourceNumber() > numberSource) {
                         req = buffers.get(i).getRequest();
                         numberSource = req.getSourceNumber();
                     }
